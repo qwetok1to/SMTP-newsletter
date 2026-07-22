@@ -27,8 +27,8 @@ public class EmailController {
 
             emailService.sendEmail(
                     email,
-                    "Test message",
-                    "This is a test email"
+                    dto.name ,
+                    dto.text
             );
         }
 

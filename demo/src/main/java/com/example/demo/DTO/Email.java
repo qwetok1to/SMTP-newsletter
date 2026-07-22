@@ -4,5 +4,7 @@ import java.util.ArrayList;
 
 public class Email {
     public ArrayList<String> mail=new ArrayList<>();
+    public String text;
+    public String name;
     
 }
