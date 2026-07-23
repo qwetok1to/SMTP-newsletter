@@ -1,0 +1,13 @@
+type Query {
+    _placeholder: String
+}
+
+type Mutation {
+    sendEmails(input: EmailInput!): String!
+}
+
+input EmailInput {
+    text: String!
+    name: String!
+    mail: [String!]!
+}

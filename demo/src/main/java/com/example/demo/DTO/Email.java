@@ -1,10 +1,10 @@
 package com.example.demo.DTO;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Email {
-    public ArrayList<String> mail=new ArrayList<>();
     public String text;
     public String name;
+    public List<String> mail;
     
 }

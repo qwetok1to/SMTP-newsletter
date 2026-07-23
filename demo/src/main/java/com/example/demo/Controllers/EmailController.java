@@ -1,37 +1,37 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.DTO.Email;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.stereotype.Controller;
+
+import com.example.demo.DTO.EmailInput;
 import com.example.demo.Servise.EmailServise;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
+@Controller
 public class EmailController {
-    @Autowired
+    @Autowired  
     EmailServise emailService;
 
-    @PostMapping("/test")
-    public ResponseEntity<String> test(@RequestBody Email dto) {
-        if (dto.mail == null || dto.mail.isEmpty()) {
-            return ResponseEntity.badRequest().body("Collection mail must not be empty");
-        }
 
-        for (String email : dto.mail) {
+    
+
+    @MutationMapping
+    public String sendEmails(@Argument EmailInput input) {
+
+        for (String email : input.getMail()) {
+
             if (email == null || email.isBlank()) {
                 continue;
             }
 
             emailService.sendEmail(
                     email,
-                    dto.name ,
-                    dto.text
+                    input.getName(),
+                    input.getText()
             );
         }
 
-        return ResponseEntity.ok("Emails sent");
+        return "Emails sent";
     }
 }

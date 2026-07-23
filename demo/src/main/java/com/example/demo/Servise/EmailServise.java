@@ -3,7 +3,6 @@ package com.example.demo.Servise;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import com.example.demo.DTO.Email;
 
 @Service
 public class EmailServise {
