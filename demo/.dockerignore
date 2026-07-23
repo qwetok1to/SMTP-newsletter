@@ -1,0 +1,16 @@
+target/
+.idea/
+.vscode/
+.github/
+*.iml
+*.iws
+*.ipr
+.git/
+.gitignore
+.gitattributes
+HELP.md
+*.md
+.DS_Store
+mvnw
+mvnw.cmd
+.mvn/
