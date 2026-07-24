@@ -34,4 +34,5 @@ public class EmailController {
 
         return "Emails sent";
     }
+    
 }
