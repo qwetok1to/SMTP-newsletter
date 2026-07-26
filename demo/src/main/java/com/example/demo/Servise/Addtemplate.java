@@ -9,23 +9,28 @@ import java.util.UUID;
 import org.springframework.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
 @Service
 public class Addtemplate {
 
+    private static final Logger logger = LoggerFactory.getLogger(Addtemplate.class);
     private static final Path STORAGE_DIR = Paths.get("uploaded-templates");
 
     public Addtemplate() {
         try {
             Files.createDirectories(STORAGE_DIR);
+            logger.info("Template storage directory created at: " + STORAGE_DIR.toAbsolutePath());
         } catch (IOException e) {
-            throw new IllegalStateException("Cannot create template storage directory", e);
+            logger.error("Cannot create template storage directory at: " + STORAGE_DIR, e);
+            throw new IllegalStateException("Cannot create template storage directory: " + e.getMessage(), e);
         }
     }
 
-    public String saveTemplate(MultipartFile file, String description) {
+    public String saveTemplate(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("Template file is required");
         }
@@ -41,13 +46,9 @@ public class Addtemplate {
 
         try {
             Files.copy(file.getInputStream(), targetFile, StandardCopyOption.REPLACE_EXISTING);
-
-            if (description != null && !description.isBlank()) {
-                Path metadataFile = STORAGE_DIR.resolve(templateId + ".txt");
-                Files.writeString(metadataFile, description);
-            }
         } catch (IOException e) {
-            throw new IllegalStateException("Failed to save template file", e);
+            logger.error("Failed to save template file to: " + targetFile, e);
+            throw new IllegalStateException("Failed to save template file: " + e.getMessage(), e);
         }
 
         return templateId;
