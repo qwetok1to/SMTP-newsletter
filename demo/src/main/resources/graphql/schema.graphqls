@@ -9,5 +9,6 @@ type Mutation {
 input EmailInput {
     text: String!
     name: String!
+    idTemplate: String!
     mail: [String!]!
 }

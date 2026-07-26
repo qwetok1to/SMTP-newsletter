@@ -28,7 +28,8 @@ public class EmailController {
             emailService.sendEmail(
                     email,
                     input.getName(),
-                    input.getText()
+                    input.getText(),
+                    input.getIdTemplate()
             );
         }
 

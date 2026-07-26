@@ -53,4 +53,22 @@ public class Addtemplate {
 
         return templateId;
     }
+
+    public String loadTemplate2(String templateId) {
+        if (templateId == null || templateId.isBlank()) {
+            throw new IllegalArgumentException("Template id is required");
+        }
+
+        Path templateFile = STORAGE_DIR.resolve(templateId + ".html");
+        if (!templateFile.normalize().startsWith(STORAGE_DIR.normalize()) || !Files.exists(templateFile)) {
+            throw new IllegalArgumentException("Template not found: " + templateId);
+        }
+
+        try {
+            return Files.readString(templateFile);
+        } catch (IOException e) {
+            logger.error("Failed to read template file: " + templateFile, e);
+            throw new IllegalStateException("Failed to read template file: " + e.getMessage(), e);
+        }
+    }
 }
